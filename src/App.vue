@@ -1,15 +1,16 @@
 <template>
   <div id="app">
-  <router-view></router-view>
-  <el-button>默认按钮</el-button>
-  <router-link to="#">点击</router-link>
+    <router-view></router-view>
   </div>
 </template>
+
 <script>
-export default {
-
-}
+  export default {};
 </script>
-<style>
 
+<style>
+  #app {
+    width: 100%;
+    height: 100%;
+  }
 </style>
