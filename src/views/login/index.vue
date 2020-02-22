@@ -1,34 +1,147 @@
 <template>
   <div class="login-wrap">
-    <div class="login-box"></div>
-    <img src="../../assets/login_banner_ele.png" alt />
+    <div class="login-box">
+      <div class="title-box">
+        <img class="logo-img" src="../../assets/login-logo.png" alt />
+        <span class="title">黑马面面</span>
+        <span class="line"></span>
+        <span class="title">用户登录</span>
+      </div>
+      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
+        <el-form-item prop="phone">
+          <el-input v-model="ruleForm.phone" placeholder="请输入手机号" prefix-icon="el-icon-user" clearable></el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input v-model="ruleForm.password" placeholder="请输入密码" prefix-icon="el-icon-lock" show-password clearable></el-input>
+        </el-form-item>
+        <el-form-item prop="code">
+          <el-col :span="16">
+            <el-input v-model="ruleForm.code" placeholder="请输入验证码" prefix-icon="el-icon-key" clearable></el-input>
+          </el-col>
+          <el-col :span="8">
+            <div class="code">
+              <img src="../../assets/login_code.png" alt="">
+            </div>
+          </el-col>
+        </el-form-item>
+        <el-form-item prop="agree">
+          <el-checkbox name="type" v-model="ruleForm.agree">
+          </el-checkbox>
+          <span class="agree"> 我已阅读并同意<el-link type="primary">用户协议</el-link>和<el-link type="primary">隐私条款</el-link></span>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" class="btn-all" @click="loginForm('ruleForm')">登 录</el-button>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" class="btn-all" @click="setupForm('ruleForm')">注 册</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+    <img class="login-banner" src="../../assets/login_banner_ele.png" alt />
   </div>
 </template>
 <script>
-export default {};
+  export default {
+    data() {
+      return {
+        ruleForm: {
+          phone: '',
+          password: '',
+          code: '',
+          agree: false,
+        },
+        rules:{
+          phone: [
+            { type: 'number', required: true, message: '请输入手机号码', trigger: 'blur' },
+          ],
+          password:[
+            { required: true, message: '请输入密码', trigger: 'blur' },
+            { min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur' }
+          ],
+          code:[{ required: true, message: '请输入验证码', trigger: 'blur' },], //pattern: /true/ 正则表达式的值必须匹配，才能通过验证, 值为true才满足条件
+          agree:[{ pattern: /true/, message: '请阅读并同意协议', trigger: 'change' },],
+        },
+      }
+    },
+    methods:{
+      loginForm(formName) {
+        this.$refs[formName].validate(v => {
+          if (v) {
+            alert('submit!');
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
+      setupForm(formName) {
+        this.$refs[formName].resetFields();
+      }
+    },
+  };
 </script>
-<style>
-.login-wrap {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    225deg,
-    rgba(20, 147, 250, 1),
-    rgba(1, 198, 250, 1)
-  );
-  display: flex;
-  justify-content: space-around;
-  align-items:center;
-}
-.login-wrap img {
-    width: 633px;
-    height: 435px;
-    margin-right:10%;
-}
-.login-box {
-  width: 478px;
-  height: 550px;
-  background: rgba(245, 245, 245, 1);
-  margin-left: 10%;
-}
+<style lang="less">
+  .login-wrap {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient( 225deg, rgba(20, 147, 250, 1), rgba(1, 198, 250, 1));
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    .login-banner {
+      width: 633px;
+      height: 435px;
+      margin-right: 10%;
+    }
+  }
+  .login-box {
+    width: 478px;
+    height: 550px;
+    background: rgba(245, 245, 245, 1);
+    margin-left: 10%;
+    padding: 40px;
+    .title-box {
+      display: flex;
+      align-items: center;
+      margin: 10px 0 30px;
+      .logo-img {
+        width: 22px;
+        height: 17px;
+        margin-right: 10px;
+      }
+      .line {
+        width: 1px;
+        height: 24px;
+        background: rgba(199, 199, 199, 1);
+        margin: 0 10px;
+      }
+      .title {
+        font-size: 22px;
+        font-family: PingFangSC;
+        font-weight: 400;
+        color: rgba(12, 12, 12, 1);
+      }
+    }
+    .code {
+      width: 100%;
+      height: 40px;
+      background-color: #f5f5f5;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .agree {
+      color: #999;
+      .el-link {
+        line-height: 1.3;
+      }
+    }
+  }
+  .btn-all {
+    width: 100%;
+  }
+  .btn-all>span {
+    font-size: 16px;
+  }
 </style>
