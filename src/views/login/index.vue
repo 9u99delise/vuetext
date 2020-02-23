@@ -1,5 +1,6 @@
 <template>
   <div class="login-wrap">
+  <!-- 登陆 -->
     <div class="login-box">
       <div class="title-box">
         <img class="logo-img" src="../../assets/login-logo.png" alt />
@@ -33,15 +34,22 @@
           <el-button type="primary" class="btn-all" @click="loginForm('ruleForm')">登 录</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" class="btn-all" @click="setupForm('ruleForm')">注 册</el-button>
+          <el-button type="primary" class="btn-all" @click="setup">注 册</el-button>
         </el-form-item>
       </el-form>
     </div>
+    <!-- 装饰图 -->
     <img class="login-banner" src="../../assets/login_banner_ele.png" alt />
+    <!-- 弹窗对话框 -->
+    <register ref="register"></register>
   </div>
 </template>
 <script>
+import register from './components/register.vue'
   export default {
+    components:{
+      register,
+    },
     data() {
       return {
         ruleForm: {
@@ -74,8 +82,8 @@
           }
         });
       },
-      setupForm(formName) {
-        this.$refs[formName].resetFields();
+      setup() {
+        this.$refs.register.dialogFormVisible = true;
       }
     },
   };
