@@ -52,7 +52,7 @@
         },
         rules:{
           phone: [
-            { type: 'number', required: true, message: '请输入手机号码', trigger: 'blur' },
+            { required: true, message: '请输入手机号码', trigger: 'blur' },
           ],
           password:[
             { required: true, message: '请输入密码', trigger: 'blur' },
