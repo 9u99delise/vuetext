@@ -21,7 +21,7 @@
           </el-col>
           <el-col :span="8">
             <div class="code">
-              <img src="../../assets/login_code.png" alt="">
+              <img :src="imgUrl" @click="changeImg" alt="">
             </div>
           </el-col>
         </el-form-item>
@@ -46,12 +46,14 @@
 </template>
 <script>
 import register from './components/register.vue'
+import { login } from '@/api/login.js'
   export default {
     components:{
       register,
     },
     data() {
       return {
+        imgUrl:process.env.VUE_APP_URL+'/captcha?type=login',
         ruleForm: {
           phone: '',
           password: '',
@@ -75,7 +77,22 @@ import register from './components/register.vue'
       loginForm(formName) {
         this.$refs[formName].validate(v => {
           if (v) {
-            alert('submit!');
+            login({
+              phone:this.ruleForm.phone,
+              password:this.ruleForm.password,
+              code:this.ruleForm.code,
+            }).then(res => {
+              // window.console.log(res)
+              if(res.data.code == 200){
+                //存token
+                window.localStorage.setItem('token',res.data.data.token)
+                this.$message.success("登陆成功!");
+                //页面跳转
+                this.$router.push('/index');  
+              }else{
+                this.$message.error("登陆失败"+res.data.message);
+              }
+            })
           } else {
             console.log('error submit!!');
             return false;
@@ -84,6 +101,9 @@ import register from './components/register.vue'
       },
       setup() {
         this.$refs.register.dialogFormVisible = true;
+      },
+      changeImg(){
+        this.imgUrl = process.env.VUE_APP_URL+'/captcha?type=login&t='+Date.now()
       }
     },
   };
