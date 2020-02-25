@@ -47,6 +47,8 @@
 <script>
 import register from './components/register.vue'
 import { login } from '@/api/login.js'
+import { setToken } from '@/utils/token.js'
+
   export default {
     components:{
       register,
@@ -85,7 +87,8 @@ import { login } from '@/api/login.js'
               // window.console.log(res)
               if(res.data.code == 200){
                 //存token
-                window.localStorage.setItem('token',res.data.data.token)
+                // window.localStorage.setItem('token',res.data.data.token)
+                setToken(res.data.data.token);
                 this.$message.success("登陆成功!");
                 //页面跳转
                 this.$router.push('/index');  
