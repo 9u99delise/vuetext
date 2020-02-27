@@ -17,34 +17,37 @@
       </div>
     </el-header>
     <el-container>
+      <!--左侧内容-->
       <el-aside width="auto">
-        <!-- 左侧导航 -->
-        <el-menu default-active="1" class="el-menu-vertical-demo" :collapse="isCollapse">
-          <el-menu-item index="1">
+        <!-- 导航 -->
+        <el-menu default-active="chart" router class="el-menu-vertical-demo" :collapse="isCollapse">
+          <el-menu-item index="chart">
             <i class="el-icon-pie-chart"></i>
             <span slot="title">数据概览</span>
           </el-menu-item>
-          <el-menu-item index="2">
+          <el-menu-item index="user">
             <i class="el-icon-user"></i>
             <span slot="title">用户列表</span>
           </el-menu-item>
-          <el-menu-item index="3">
+          <el-menu-item index="question">
             <i class="el-icon-edit-outline"></i>
             <span slot="title">题库列表</span>
           </el-menu-item>
-          <el-menu-item index="4">
+          <el-menu-item index="business">
             <i class="el-icon-office-building"></i>
             <span slot="title">企业列表</span>
           </el-menu-item>
-          <el-menu-item index="5">
+          <el-menu-item index="subject">
             <i class="el-icon-notebook-2"></i>
             <span slot="title">学科列表</span>
           </el-menu-item>
         </el-menu>
       </el-aside>
-
-      <el-main>Main</el-main>
       <!-- 右侧内容 -->
+      <el-main>
+        <!--路由出口-->
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>

@@ -57,10 +57,10 @@ import { setToken } from '@/utils/token.js'
       return {
         imgUrl:process.env.VUE_APP_URL+'/captcha?type=login',
         ruleForm: {
-          phone: '',
-          password: '',
+          phone: '13400134000',
+          password: '123456',
           code: '',
-          agree: false,
+          agree: true,
         },
         rules:{
           phone: [
