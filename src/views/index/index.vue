@@ -11,8 +11,8 @@
         <span>黑马面面</span>
       </div>
       <div class="right">
-        <img :src="avatar" alt />
-        <span class="userhi">{{ username }},您好</span>
+        <img :src="$store.state.avatar" alt />
+        <span class="userhi">{{ $store.state.userName }},您好</span>
         <el-button size="mini" type="primary" @click="indexLogout">退出</el-button>
       </div>
     </el-header>
@@ -20,24 +20,29 @@
       <!--左侧内容-->
       <el-aside width="auto">
         <!-- 导航 -->
-        <el-menu default-active="chart" router class="el-menu-vertical-demo" :collapse="isCollapse">
-          <el-menu-item index="chart">
+        <el-menu
+          default-active="/index/chart"
+          router
+          class="el-menu-vertical-demo"
+          :collapse="isCollapse"
+        >
+          <el-menu-item index="/index/chart">
             <i class="el-icon-pie-chart"></i>
             <span slot="title">数据概览</span>
           </el-menu-item>
-          <el-menu-item index="user">
+          <el-menu-item index="/index/user">
             <i class="el-icon-user"></i>
             <span slot="title">用户列表</span>
           </el-menu-item>
-          <el-menu-item index="question">
+          <el-menu-item index="/index/question">
             <i class="el-icon-edit-outline"></i>
             <span slot="title">题库列表</span>
           </el-menu-item>
-          <el-menu-item index="business">
+          <el-menu-item index="/index/business">
             <i class="el-icon-office-building"></i>
             <span slot="title">企业列表</span>
           </el-menu-item>
-          <el-menu-item index="subject">
+          <el-menu-item index="/index/subject">
             <i class="el-icon-notebook-2"></i>
             <span slot="title">学科列表</span>
           </el-menu-item>
@@ -52,8 +57,8 @@
   </el-container>
 </template>
 <script>
-import { info, logout } from "@/api/index.js";
-import { removeToken } from "@/utils/token.js";
+import { logout } from "@/api/index.js";
+import { removeToken, getToken } from "@/utils/token.js";
 export default {
   data() {
     return {
@@ -62,13 +67,24 @@ export default {
       isCollapse: false
     };
   },
+  beforeCreate() {
+    if (getToken() == null) {
+      this.$message.error("请先登录!");
+      this.$router.push("/login");
+    }
+  },
   created() {
-    info().then(res => {
-      window.console.log(res);
-      this.avatar = process.env.VUE_APP_URL + "/" + res.data.data.avatar;
-      window.console.log(this.avatar);
-      this.username = res.data.data.username;
-    });
+  //   info().then(res => {
+  //     // window.console.log(res);
+  //     if (res.data.code == 200) {
+  //       this.avatar = process.env.VUE_APP_URL + "/" + res.data.data.avatar;
+  //       this.username = res.data.data.username;
+  //     }else if(res.data.code == 206){
+  //       this.$message.error('登陆状态异常,请重新登陆!');
+  //       removeToken();
+  //       this.$router.push('/login');
+  //     }
+  //   });
   },
   methods: {
     indexLogout() {
@@ -84,6 +100,9 @@ export default {
               this.$message.success("退出成功!");
               //清除本地token
               removeToken();
+              //清除vuex数据
+              this.$store.commit("getUserName","");
+              this.$store.commit("getAvatar","");
               //跳转登陆页面
               this.$router.push("/login");
             }
@@ -108,8 +127,8 @@ export default {
   height: 60px;
   color: #636363;
   background: #fff;
-  box-shadow: 0px 2px 5px 0px rgba(63, 63, 63, 0.35);
   display: flex;
+  box-shadow: 0px 2px 5px 0px rgba(63, 63, 63, 0.35);
   justify-content: space-between;
   .icon_head {
     font-size: 24px;
@@ -119,8 +138,8 @@ export default {
   background-color: #fff;
   box-shadow: 0px 2px 5px 0px rgba(63, 63, 63, 0.35);
   border-right: solid 1px #e6e6e6;
-  .el-menu{
-    border-right:none;
+  .el-menu {
+    border-right: none;
   }
   .el-menu-item {
     color: #686a6e;

@@ -15,13 +15,14 @@ indexReq.interceptors.request.use(config => {
 }, error => {
     return Promise.reject(error);
 });
-
+//获取用户信息
 export function info() {
     return indexReq({
         method: 'get',
         url: '/info',
     })
 }
+//退出登录
 export function logout() {
     return indexReq({
         method: 'get',
