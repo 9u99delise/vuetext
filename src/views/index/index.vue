@@ -21,7 +21,7 @@
       <el-aside width="auto">
         <!-- 导航 -->
         <el-menu
-          default-active="/index/chart"
+          default-active="/index"
           router
           class="el-menu-vertical-demo"
           :collapse="isCollapse"
