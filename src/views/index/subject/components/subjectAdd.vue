@@ -47,6 +47,7 @@ export default {
             if(res.data.code == 200){
                 this.$message.success('新增成功!');
                 this.dialogFormVisible = false;
+                this.form = {};
                 this.$parent.getList();
             }else{
                 this.$message.error(res.data.message)

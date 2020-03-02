@@ -64,6 +64,7 @@
       </el-table>
       <!--分页-->
       <el-pagination
+        class="center"
         background
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -83,6 +84,7 @@ import { subjectList, subjectStatus, subjectRemove } from "@/api/subject.js";
 import subjectAdd from "./components/subjectAdd.vue";
 import subjectEdit from "./components/subjectEdit.vue";
 export default {
+  name: "subject",
   components: {
     subjectAdd,
     subjectEdit
@@ -133,6 +135,7 @@ export default {
       });
     },
     search() {
+      this.page = 1;
       this.getList();
     },
     resetForm(formName) {
@@ -148,7 +151,7 @@ export default {
       }
     },
     handleDelete(row) {
-      console.log(row);
+      // console.log(row);
       this.$confirm("您确定要删除本条记录吗?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -191,5 +194,10 @@ export default {
 }
 .isred {
   color: #f56c6c;
+}
+.center {
+  display: flex;
+  justify-content: center;
+  margin: 10px auto;
 }
 </style>

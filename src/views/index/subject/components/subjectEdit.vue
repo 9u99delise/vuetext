@@ -44,6 +44,8 @@ export default {
       this.$refs[formName].validate(v => {
         if (v) {
           subjectEdit(this.form).then(res => {
+            console.log(this.form);
+            console.log(res);
             if (res.data.code == 200) {
               this.$message.success("编辑成功");
               this.dialogFormVisible = false;
