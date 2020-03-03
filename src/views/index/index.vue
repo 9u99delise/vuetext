@@ -26,26 +26,13 @@
           class="el-menu-vertical-demo"
           :collapse="isCollapse"
         >
-          <el-menu-item index="/index/chart">
-            <i class="el-icon-pie-chart"></i>
-            <span slot="title">数据概览</span>
+          <template v-for="(item, index) in childrenRoutes"  >
+          <el-menu-item :index="'/index/'+item.path"  :key="index" v-if="item.meta.roles.includes($store.state.role)">
+            <i :class="item.meta.icon"></i>
+            <span slot="title">{{item.meta.title}}</span>
           </el-menu-item>
-          <el-menu-item index="/index/user">
-            <i class="el-icon-user"></i>
-            <span slot="title">用户列表</span>
-          </el-menu-item>
-          <el-menu-item index="/index/question">
-            <i class="el-icon-edit-outline"></i>
-            <span slot="title">题库列表</span>
-          </el-menu-item>
-          <el-menu-item index="/index/business">
-            <i class="el-icon-office-building"></i>
-            <span slot="title">企业列表</span>
-          </el-menu-item>
-          <el-menu-item index="/index/subject">
-            <i class="el-icon-notebook-2"></i>
-            <span slot="title">学科列表</span>
-          </el-menu-item>
+          </template>
+
         </el-menu>
       </el-aside>
       <!-- 右侧内容 -->
@@ -57,11 +44,13 @@
   </el-container>
 </template>
 <script>
+import childrenRoutes from "@/router/childrenRoutes.js";
 import { logout } from "@/api/index.js";
 import { removeToken, getToken } from "@/utils/token.js";
 export default {
   data() {
     return {
+      childrenRoutes,
       avatar: "",
       username: "",
       isCollapse: false

@@ -11,8 +11,8 @@
         <el-form-item label="电话" prop="phone" :label-width="formLabelWidth">
           <el-input v-model="form.phone"></el-input>
         </el-form-item>
-        <el-form-item label="角色" prop="role" :label-width="formLabelWidth">
-          <el-select v-model="form.role" @change="form.role_id = form.role" placeholder="请选择角色">
+        <el-form-item label="角色" prop="role_id" :label-width="formLabelWidth">
+          <el-select v-model="form.role_id"  placeholder="请选择角色">
             <el-option label="管理员" value="2"></el-option>
             <el-option label="老师" value="3"></el-option>
             <el-option label="学生" value="4"></el-option>
@@ -59,7 +59,7 @@ export default {
             trigger: "blur"
           },
           {
-            pattern: /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14} /,
+            pattern: /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/,
             message: "请输入正确的邮箱地址",
             trigger: "blur"
           }
@@ -71,12 +71,12 @@ export default {
             trigger: "blur"
           },
           {
-            pattern: /0?(13|14|15|17|18|19)[0-9]{9} /,
+            pattern: /0?(13|14|15|17|18|19)[0-9]{9}/,
             message: "请输入正确的手机号码",
             trigger: "blur"
           }
         ],
-        role: [
+        role_id: [
           {
             required: true,
             message: "请选择角色",

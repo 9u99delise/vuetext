@@ -8,6 +8,7 @@ const store = new Vuex.Store({
     state:{ 
         userName:'',
         avatar:'',
+        role:'', //角色
      },
     mutations:{ 
         getUserName(state,val){
@@ -15,6 +16,9 @@ const store = new Vuex.Store({
         },
         getAvatar(state,val){
             state.avatar = val;
+        },
+        changeRole(state,val){
+            state.role = val;
         }
      },
 })

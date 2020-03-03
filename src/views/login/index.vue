@@ -89,7 +89,7 @@ import { setToken } from '@/utils/token.js'
                 //存token
                 // window.localStorage.setItem('token',res.data.data.token)
                 setToken(res.data.data.token);
-                this.$message.success("登陆成功!");
+                // this.$message.success("登陆成功!");
                 //页面跳转
                 this.$router.push('/index');  
               }else{
